@@ -5,4 +5,5 @@ interface ActionParams<T = any> {
 
 interface IState {
   common: any;
+  user: User;
 }

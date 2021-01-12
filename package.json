@@ -12,6 +12,7 @@
     "@types/react-dom": "^16.9.8",
     "antd": "^4.10.0",
     "axios": "^0.21.1",
+    "crypto": "^1.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",
@@ -23,7 +24,8 @@
     "redux-saga-routines": "^3.2.3",
     "redux-thunk": "^2.3.0",
     "typescript": "^4.0.3",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^0.2.4",
+    "zhihu-particle": "^0.0.9"
   },
   "scripts": {
     "start": "env-cmd -e dev react-app-rewired start",
@@ -50,11 +52,13 @@
   },
   "devDependencies": {
     "@types/react-redux": "^7.1.15",
+    "@types/react-router-dom": "^5.1.7",
     "@types/redux-logger": "^3.0.8",
     "@types/redux-saga-routines": "^3.1.0",
     "babel-plugin-import": "^1.13.3",
     "customize-cra": "^1.0.0",
     "env-cmd": "^10.1.0",
+    "http-proxy-middleware": "^1.0.6",
     "less": "^4.0.0",
     "less-loader": "5",
     "react-app-rewired": "^2.1.8"

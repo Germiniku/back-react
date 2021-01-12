@@ -30,6 +30,11 @@ class LocalStorage {
     }
     return null;
   }
+  public static get(key: string) {
+    if (!store) return;
+    const data = store.getItem(key) || '';
+    return data;
+  }
   public static remove(key: string) {
     if (!store) return;
     try {

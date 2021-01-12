@@ -48,7 +48,6 @@ class Http {
         // const token = LocalStorage.getToken()
         const token = 'widowmaker';
         if (token) newConfig.headers['Authorize'] = token;
-
         return config;
       },
       (error: AxiosError) => Promise.reject(error)
@@ -57,7 +56,7 @@ class Http {
   // 响应拦截器
   useInterceptResponse() {
     this.axios.interceptors.response.use(
-      (res: AxiosResponse) => {
+      res => {
         if (res.data.code === 50001) message.error('服务器错误,请联系管理员');
         // token过期
         else if (res.data.code === 50002) {
@@ -66,6 +65,7 @@ class Http {
         }
         if (res.data.code !== 40000) {
           message.error(res.data.msg || '服务器异常');
+          return Promise.reject(res.data.msg);
         }
         return Promise.resolve(res.data);
       },
@@ -113,23 +113,27 @@ class Http {
     options?: Object,
     isComplex?: boolean
   ) {
-    if (isComplex) return this.axios[type](url, null, options);
+    // if (isComplex) {
+    //   return this.axios[type](url, null, options);
+    // }
     return this.axios[type](url, options);
   }
   /**
    * post put patch delete 逻辑处理都一样
    * 把底层函数封装直接调用
    */
-  private commonRequest = (
+  private commonRequest(
     type: string,
     url: string,
-    params: Object | undefined,
-    data: Object | undefined
-  ) => {
+    params?: Object,
+    data?: Object | null
+  ): AxiosPromise {
+    // 合并一下参数
     let options: Object = {
       params,
       data
     };
+
     if (params && data === undefined) {
       options = {
         data: params
@@ -141,7 +145,7 @@ class Http {
       };
     }
     return this.fetchData(type, url, options, true);
-  };
+  }
   /**
    * get请求方式
    * @Params
@@ -149,7 +153,7 @@ class Http {
    * params 请求参数
    *
    */
-  public get(url: string, params: Object | undefined): requestFn {
+  public get(url: string, params?: Object | undefined): requestFn {
     // get可以不传参数
     if (!params) return this.fetchData('get', url);
     // get请求很有可能会被缓存，所以我们需要给他加一个随机参数
@@ -165,40 +169,24 @@ class Http {
    * params url params eg: a=1&b=2
    * data 请求体json数据
    */
-  public post(
-    url: string,
-    params: Object | undefined,
-    data: Object | undefined
-  ): requestFn {
+  public post: requestFn = (url, params, data) => {
     return this.commonRequest('post', url, params, data);
-  }
+  };
   /**
    * put 请求方式
    * url 请求地址
    * params url params eg: a=1&b=2
    * data 请求体json数据
    */
-  public put(
-    url: string,
-    params: Object | undefined,
-    data: Object | undefined
-  ): requestFn {
-    return this.commonRequest('post', url, params, data);
-  }
-  public patch(
-    url: string,
-    params: Object | undefined,
-    data: Object | undefined
-  ): requestFn {
+  public put: requestFn = (url, params, data) => {
+    return this.commonRequest('put', url, params, data);
+  };
+  public patch: requestFn = (url, params, data) => {
     return this.commonRequest('patch', url, params, data);
-  }
-  public delete(
-    url: string,
-    params: Object | undefined,
-    data: Object | undefined
-  ): requestFn {
+  };
+  public delete: requestFn = (url, params, data) => {
     return this.commonRequest('delete', url, params, data);
-  }
+  };
 }
 
-export default Http;
+export default new Http();

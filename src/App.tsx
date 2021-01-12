@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
-import Login from './pages/login';
-
-
+import React from 'react';
+import Router from './router';
 
 function App() {
   return (
     <div className="App">
-      <Login />
+      <Router />
     </div>
   );
 }
