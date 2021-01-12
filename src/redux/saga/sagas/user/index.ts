@@ -7,7 +7,7 @@ function* authorize(action: ActionParams<ILogin>) {
   try {
     // call 表示用同步的方式 做异步的事情
     const res = yield call(login, action.payload);
-
+    console.log(res);
     // 如果需要延迟
     yield delay(1000);
     yield put(loginAction.success(res));
