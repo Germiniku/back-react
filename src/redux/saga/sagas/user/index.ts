@@ -1,20 +1,24 @@
 import { takeEvery, put, delay, take, cancel, call } from 'redux-saga/effects';
 import { loginAction } from '../../actions/user';
 import { login } from '../../../../http/user';
+import loginUtils from '../../../../utils/loginUtils';
 
 function* authorize(action: ActionParams<ILogin>) {
   // 一进来过后， 就去调用后端的登录接口
   try {
     // call 表示用同步的方式 做异步的事情
     const res = yield call(login, action.payload);
-    console.log(res);
+    const {
+      data: { token }
+    } = res;
     // 如果需要延迟
-    yield delay(1000);
-    yield put(loginAction.success(res));
+    yield call(loginUtils.saveLoginState, token);
+    yield put(loginAction.success(token));
   } catch (error) {
     // 错误的处理
     yield put(loginAction.failure());
   }
+  yield put(loginAction.fulfill());
 }
 
 export default () =>

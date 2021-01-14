@@ -16,14 +16,13 @@ export default function (state = initialState, action: ActionParams) {
       };
     }
     case loginAction.SUCCESS: {
-      console.log('登陆成功');
       return {
         ...state,
-        isLogin: true
+        isLogin: true,
+        ...action.payload
       };
     }
     case loginAction.FAILURE: {
-      console.log('登陆出错');
       return {
         ...state
       };

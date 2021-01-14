@@ -12,7 +12,7 @@ import AxiosInstance, {
 import { message } from 'antd';
 import { setRetryTip } from '../redux/saga/actions/common';
 import store from '../redux';
-
+import isRetryAllowed from './isRetryAllow';
 // 定义请求的参数类型声明
 type requestFn = (
   url: string,
@@ -70,30 +70,37 @@ class Http {
         return Promise.resolve(res.data);
       },
       (error: AxiosError) => {
-        // 请求出错，一般是服务器问题
-        const { config } = error;
-        let retryCount = config.headers['axios-retry'] || 0;
-        if (retryCount >= this.retry) {
-          // 通知redux重试次数超过限制，修改状态，组件内自动感应，变为true过后，会提示用户
-          store.dispatch(setRetryTip(true));
-          return Promise.reject(error);
+        if (!isRetryAllowed(error)) {
+          // 请求出错，一般是服务器问题
+          const { config } = error;
+          let retryCount = config.headers['axios-retry'] || 0;
+          if (retryCount >= this.retry) {
+            // 通知redux重试次数超过限制，修改状态，组件内自动感应，变为true过后，会提示用户
+            store.dispatch(setRetryTip(true));
+            return Promise.reject(error);
+          }
+          retryCount += 1;
+          const backoff = new Promise<void>(resolve => {
+            setTimeout(() => {
+              resolve();
+            }, this.retryDelay || 1);
+          });
+          // 修改重试次数
+          config.headers['axios-retry'] = retryCount;
+
+          return backoff.then(() => this.axios(config));
         }
-        retryCount += 1;
-        const backoff = new Promise<void>(resolve => {
-          setTimeout(() => {
-            resolve();
-          }, this.retryDelay || 1);
-        });
-        // 修改重试次数
-        config.headers['axios-retry'] = retryCount;
 
-        // if(error.response){
-
-        // }
-
-        return backoff.then(() => {
-          this.axios(config);
-        });
+        if (error.response) {
+          // http状态码非200的时候
+          if (error.response.status >= 500) message.error('服务器错误');
+        } else if (error.request) {
+          // ...
+        } else {
+          // 其他错误
+          message.error(error.message);
+        }
+        return Promise.reject(error);
       }
     );
   }

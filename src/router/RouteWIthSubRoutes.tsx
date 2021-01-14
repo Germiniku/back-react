@@ -1,38 +1,43 @@
 /**
  * 返回具体的路由导航
  */
-
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { RouteConfigComponentProps } from 'react-router-config';
 
 export default function (props: RouteConfigComponentProps) {
   const { route, match } = props;
-  if (route && route.routes) {
-    return (
-      <Switch>
-        {route.routes.map((route, index) => {
-          return (
-            <Route
-              key={route.key || index}
-              // 路径实际上被拼凑出来的 /a/b/c
-              path={`${match.path}${route.path}` || ''}
-              exact={route.exact}
-              strict={route.strict}
-              render={(props: RouteConfigComponentProps) => {
-                if (route.render) {
-                  return route.render({ ...props, route });
-                }
-                if (route.component) {
-                  return <route.component {...props} route={route} />;
-                }
-                return null;
-              }}
-            />
-          );
-        })}
-      </Switch>
-    );
+  if (route) {
+    if (route.routes) {
+      return (
+        <Switch>
+          {route.routes.map((r, i) => {
+            console.log('走到了这里');
+            console.log(r);
+            return (
+              <Route
+                key={r.key || i}
+                // 路径实际上是被拼凑出来的。
+                // 拼起来就是  /a/b/c/create
+                path={`${match.path}${r.path || ''}`}
+                exact={r.exact}
+                strict={r.strict}
+                render={(props: RouteConfigComponentProps) => {
+                  if (r.render) {
+                    return r.render({ ...props, route: r });
+                  }
+                  if (r.component) {
+                    return <r.component {...props} route={r} />;
+                  }
+                  return null;
+                }}
+              />
+            );
+          })}
+        </Switch>
+      );
+    }
   }
+
   return null;
 }

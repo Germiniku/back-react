@@ -18,7 +18,7 @@ const LoginForm: React.FC<IProps> = props => {
       });
     } else {
       const data = Object.assign(values, {
-        password: MD5(values.password)
+        password: MD5(values.password).toString()
       });
       fetch(data);
     }
