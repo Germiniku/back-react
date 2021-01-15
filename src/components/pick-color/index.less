@@ -1,0 +1,28 @@
+.pick-color {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .swatch {
+    padding: 1px;
+    background: #000;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+    &-color {
+      width: 30px;
+      height: 16px;
+      border-radius: 2px;
+    }
+  }
+  .popover {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    .cover {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+  }
+}
