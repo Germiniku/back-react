@@ -45,7 +45,30 @@
       }
     }
   }
-  &-sider {
-    // background: @layout-theme-color;
+  // 侧边栏布局
+  .sidebar {
+    background: @primary-color;
+    .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 12px;
+      width: 200px;
+      height: 40px;
+      background: @primary-color;
+      &-icon {
+        position: relative;
+        font-size: 28px;
+        color: #fff;
+      }
+      &-title {
+        margin-left: 10px;
+        font-size: 22px;
+        color: #fff;
+      }
+    }
+    .ant-menu {
+      background: @primary-color;
+    }
   }
 }
