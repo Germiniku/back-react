@@ -3,8 +3,7 @@ import {
   SketchPicker,
   GithubPicker,
   TwitterPicker,
-  ChromePicker,
-  ColorResult
+  ChromePicker
 } from 'react-color';
 import { Popover } from 'antd';
 import './index.less';
@@ -78,10 +77,7 @@ const PickColor: React.FC<IProps> = props => {
       <div className="popover">
         <div className="cover" onClick={handleClosePicker} />
         <div style={styles.wrapper}>
-          <Picker
-            color={color}
-            onChangeComplete={handleChangeComplete}
-          />
+          <Picker color={color} onChangeComplete={handleChangeComplete} />
         </div>
       </div>
     ) : null;
