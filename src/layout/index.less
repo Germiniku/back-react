@@ -32,6 +32,7 @@
       &-navbar {
         flex-shrink: 1;
         flex-grow: 1;
+        overflow: hidden;
         // 顶部菜单栏导航样式
         .top-menu {
           .ant-menu {
@@ -53,12 +54,12 @@
       justify-content: center;
       align-items: center;
       padding: 12px;
+      padding: 8px 0 0 3px;
       // width: 200px;
       height: 40px;
       background: @primary-color;
       &-icon {
-        position: relative;
-        font-size: 28px;
+        font-size: 30px;
         color: #fff;
       }
       &-title {
@@ -84,4 +85,7 @@
       margin-right: 4px;
     }
   }
+}
+.ant-drawer-header-no-title {
+  margin-bottom: 20px;
 }

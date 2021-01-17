@@ -130,7 +130,7 @@ const LeftTopSidebar: React.FC<IProps> = props => {
     <Sider className="sidebar" trigger={null} collapsible collapsed={collapsed}>
       <div className="logo">
         <GithubOutlined className="logo-icon" />
-        <span className="logo-title">dva</span>
+        <span className="logo-title" style={{display: !!collapsed ? 'none' : ''}}>dva</span>
       </div>
       <Menu
         theme="dark"
