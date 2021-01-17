@@ -15,13 +15,13 @@ export default {
     {
       component: RouteWithSubRoute,
       icon: '',
-      name: '用户资料管理列表',
+      name: '用户资料',
       path: '/profile',
       routes: [
         {
           component: RouteWithSubRoute,
           icon: '',
-          name: '用户资料',
+          name: '资料列表',
           path: '/list',
           routes: [
             {

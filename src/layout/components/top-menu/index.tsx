@@ -23,8 +23,6 @@ const TopMenu: React.FC<IProps> = props => {
     currentTopMenu,
     pathname
   } = props;
-  console.log('menuItems:', menuItems);
-  console.log('currentTopMenu:', currentTopMenu);
   const handleOnPathClick = useCallback(
     ({ key }) => {
       message.success('摸了一把');

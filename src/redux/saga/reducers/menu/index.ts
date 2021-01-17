@@ -14,7 +14,6 @@ export default (state = initialState, action: ActionParams) => {
     case MenuAction.SET_MENU: {
       const { routes } = action.payload;
       const { topMenu, breadcrumb, sideMenu } = recursiveMenu(routes);
-      console.log(' 执行到了这里');
       return {
         ...state,
         topMenu,

@@ -30,9 +30,7 @@ const LayoutComp: React.FC<IProps> = props => {
   };
 
   // 获取顶部菜单栏数据
-  const { topMenu, currentTopMenu } = useSelector(
-    (state: IState) => state.menu
-  );
+  const { topMenu, currentTopMenu, currentSidebar } = useSelector((state: IState) => state.menu);
   useEffect(() => {
     actions.setMenu({ routes: route?.routes });
   }, [route, actions]);
@@ -41,18 +39,21 @@ const LayoutComp: React.FC<IProps> = props => {
   }
   return (
     <Layout className="layout">
-      <LeftTopSidebar collapsed={collapsed} />
+      <LeftTopSidebar
+        pathname={pathname}
+        currentTopMenu={currentTopMenu || ''}
+        collapsed={collapsed}
+        menuItems={currentSidebar}
+        history={history}
+      />
       <Layout className="layout-header">
         <Header className="layout-header-background" style={{ padding: 0 }}>
           <div className="layout-header-top">
             <div className="trigger">
-              {React.createElement(
-                collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-                {
-                  className: 'trigger',
-                  onClick: toggle
-                }
-              )}
+              {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+                className: 'trigger',
+                onClick: toggle
+              })}
             </div>
 
             <div className="layout-header-top-navbar">
