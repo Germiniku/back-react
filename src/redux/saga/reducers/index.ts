@@ -4,9 +4,11 @@
 
 import common from './common';
 import user from './user';
+import menu from './menu';
 const sagaReducer = {
   common,
-  user
+  user,
+  menu
 };
 
 export default sagaReducer;

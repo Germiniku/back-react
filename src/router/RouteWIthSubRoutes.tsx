@@ -7,37 +7,34 @@ import { RouteConfigComponentProps } from 'react-router-config';
 
 export default function (props: RouteConfigComponentProps) {
   const { route, match } = props;
-  if (route) {
-    if (route.routes) {
-      return (
-        <Switch>
-          {route.routes.map((r, i) => {
-            console.log('走到了这里');
-            console.log(r);
-            return (
-              <Route
-                key={r.key || i}
-                // 路径实际上是被拼凑出来的。
-                // 拼起来就是  /a/b/c/create
-                path={`${match.path}${r.path || ''}`}
-                exact={r.exact}
-                strict={r.strict}
-                render={(props: RouteConfigComponentProps) => {
-                  if (r.render) {
-                    return r.render({ ...props, route: r });
-                  }
-                  if (r.component) {
-                    return <r.component {...props} route={r} />;
-                  }
-                  return null;
-                }}
-              />
-            );
-          })}
-        </Switch>
-      );
-    }
+  if (route?.routes) {
+    return (
+      <Switch>
+        {route.routes.map((r, i) => {
+          console.log('走到了这里');
+          console.log(r);
+          return (
+            <Route
+              key={r.key || i}
+              // 路径实际上是被拼凑出来的。
+              // 拼起来就是  /a/b/c/create
+              path={`${match.path}${r.path || ''}`}
+              exact={r.exact}
+              strict={r.strict}
+              render={(props: RouteConfigComponentProps) => {
+                if (r.render) {
+                  return r.render({ ...props, route: r });
+                }
+                if (r.component) {
+                  return <r.component {...props} route={r} />;
+                }
+                return null;
+              }}
+            />
+          );
+        })}
+      </Switch>
+    );
   }
-
   return null;
 }

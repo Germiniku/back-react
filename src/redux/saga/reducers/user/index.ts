@@ -1,5 +1,3 @@
-import { stat } from 'fs';
-import LoginForm from '../../../../pages/login/form';
 import { loginAction } from '../../actions/user';
 
 const initialState = {

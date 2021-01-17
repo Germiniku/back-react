@@ -38,18 +38,21 @@ const PickColor: React.FC<IProps> = props => {
   const [color, setColor] = useState(themeColor);
   const Picker: any = pickers[type] ? pickers[type] : SketchPicker;
 
-  const handleChangeComplete = (color: any) => {
-    onChangeComplete(color.hex);
-    setColor(color.hex);
-  };
+  const handleChangeComplete = useCallback(
+    (color: any) => {
+      onChangeComplete(color.hex);
+      setColor(color.hex);
+    },
+    [onChangeComplete, setColor]
+  );
   // 展示色块的点击
   const handleDisplayColorPicker = useCallback(() => {
     setDisplayColorPicker(true);
-  }, [displayColorPicker]);
+  }, []);
   // 关闭颜色选择器
   const handleClosePicker = useCallback(() => {
     setDisplayColorPicker(false);
-  }, [displayColorPicker]);
+  }, []);
   const { swatch, picker } = useMemo(() => {
     const styles: any = {
       wrapper: {
@@ -85,7 +88,15 @@ const PickColor: React.FC<IProps> = props => {
       swatch,
       picker
     };
-  }, [displayColorPicker, position, color]);
+  }, [
+    displayColorPicker,
+    position,
+    color,
+    Picker,
+    handleChangeComplete,
+    handleClosePicker,
+    handleDisplayColorPicker
+  ]);
   return (
     <div className="pick-color">
       {swatch}

@@ -7,7 +7,6 @@ import AxiosInstance, {
   AxiosPromise,
   AxiosError,
   AxiosRequestConfig,
-  AxiosResponse
 } from 'axios';
 import { message } from 'antd';
 import { setRetryTip } from '../redux/saga/actions/common';

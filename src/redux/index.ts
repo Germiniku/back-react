@@ -10,7 +10,7 @@ import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
 import rootReducer from './reducer';
 import rootSaga from './saga/sagas';
-import thunk from 'redux-thunk';
+// import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 
 export const history = createBrowserHistory();
@@ -25,7 +25,12 @@ const composeEnhancer = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 const store = createStore(
   rootReducer(history),
   composeEnhancer(
-    applyMiddleware(routerMiddleware(history), sagaMiddleware, thunk, logger)
+    applyMiddleware(
+      routerMiddleware(history),
+      sagaMiddleware,
+      // thunk,
+      logger
+    )
   )
 );
 

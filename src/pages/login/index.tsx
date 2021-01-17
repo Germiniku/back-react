@@ -1,4 +1,3 @@
-import Layout from 'antd/lib/layout/layout';
 import React, { memo } from 'react';
 import Background from './background';
 import LoginLayout from './layout';

@@ -1,5 +1,4 @@
-import { createRoutine, promisifyRoutine } from 'redux-saga-routines';
-import extendRoutine from '../extendRoutines';
+import { createRoutine } from 'redux-saga-routines';
 import NAME_SPACE from '../../../constants/namespace';
 
 

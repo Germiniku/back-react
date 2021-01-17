@@ -4,7 +4,8 @@
 
 const NAME_SPACE = {
   COMMON: 'widowmaker-common',
-  USER: 'widowmaker-user'
+  USER: 'widowmaker-user',
+  MENU: 'widowmaker-menu'
 };
 
 export default NAME_SPACE;
