@@ -4,25 +4,17 @@
 
 import React, { memo, useCallback, useEffect } from 'react';
 import { Menu, message } from 'antd';
-import { matchPath, RouteComponentProps } from 'react-router-dom';
-import { matchRoutes } from 'react-router-config';
+import { matchPath } from 'react-router-dom';
+import { IRouteProps } from '../../layout';
 
-interface IProps {
+interface IProps extends IRouteProps {
   menuItems: Array<IMenuItem>;
   setCurrentMenu: any;
-  pathname: RouteComponentProps['location']['pathname'];
-  history: RouteComponentProps['history'];
   currentTopMenu: string | null;
 }
 
 const TopMenu: React.FC<IProps> = props => {
-  const {
-    menuItems,
-    setCurrentMenu,
-    history,
-    currentTopMenu,
-    pathname
-  } = props;
+  const { menuItems, setCurrentMenu, history, currentTopMenu, pathname } = props;
   const handleOnPathClick = useCallback(
     ({ key }) => {
       message.success('摸了一把');
@@ -35,10 +27,7 @@ const TopMenu: React.FC<IProps> = props => {
   );
   //  默认选中逻辑
   useEffect(() => {
-    if (
-      !currentTopMenu ||
-      pathname.split('/')[1] !== currentTopMenu.split('/')[1]
-    ) {
+    if (!currentTopMenu || pathname.split('/')[1] !== currentTopMenu.split('/')[1]) {
       // 判断选中是哪一项
       let selectedMenu = menuItems.find(menu => {
         const matchedRoute = matchPath(pathname, {

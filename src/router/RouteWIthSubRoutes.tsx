@@ -11,8 +11,6 @@ export default function (props: RouteConfigComponentProps) {
     return (
       <Switch>
         {route.routes.map((r, i) => {
-          console.log('走到了这里');
-          console.log(r);
           return (
             <Route
               key={r.key || i}

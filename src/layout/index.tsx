@@ -4,11 +4,14 @@ import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import LeftTopSidebar from './components/left-top';
 import TopMenu from './components/top-menu';
 import RightMenu from './components/rightmenu';
-import './index.less';
 import useActions from '../hooks/useActions';
 import { MenuAction } from '../redux/saga/actions/menu';
 import { RouteConfigComponentProps } from 'react-router-config';
 import { useSelector } from 'react-redux';
+import { renderRoutes } from 'react-router-config';
+import Breadcrumb from './components/breadcrumb';
+
+import './index.less';
 
 const { Header, Content } = Layout;
 
@@ -30,7 +33,9 @@ const LayoutComp: React.FC<IProps> = props => {
   };
 
   // 获取顶部菜单栏数据
-  const { topMenu, currentTopMenu, currentSidebar } = useSelector((state: IState) => state.menu);
+  const { topMenu, currentTopMenu, currentSidebar, breadcrumb } = useSelector(
+    (state: IState) => state.menu
+  );
   useEffect(() => {
     actions.setMenu({ routes: route?.routes });
   }, [route, actions]);
@@ -49,12 +54,14 @@ const LayoutComp: React.FC<IProps> = props => {
       <Layout className="layout-header">
         <Header className="layout-header-background" style={{ padding: 0 }}>
           <div className="layout-header-top">
-            <div className="trigger">
-              {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-                className: 'trigger',
-                onClick: toggle
-              })}
-            </div>
+            {currentSidebar.length !== 0 && (
+              <div className="trigger">
+                {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+                  className: 'trigger',
+                  onClick: toggle
+                })}
+              </div>
+            )}
 
             <div className="layout-header-top-navbar">
               <TopMenu
@@ -70,15 +77,14 @@ const LayoutComp: React.FC<IProps> = props => {
             </div>
           </div>
         </Header>
-        <Content
-          className="site-layout-background"
-          style={{
-            margin: '24px 16px',
-            padding: 24,
-            minHeight: 280
-          }}
-        >
-          Content
+        <Content className="layout-content">
+          <Breadcrumb
+            data={breadcrumb}
+            currentSidebar={currentSidebar}
+            pathname={pathname}
+            history={history}
+          />
+          {renderRoutes(route?.routes)}
         </Content>
       </Layout>
     </Layout>

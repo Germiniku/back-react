@@ -47,7 +47,7 @@ const LeftTopSidebar: React.FC<IProps> = props => {
         currentOpenSubs: openKeys
       });
     },
-    [keys.currentOpenSubs]
+    [keys]
   );
   useEffect(() => {
     if (
@@ -122,7 +122,7 @@ const LeftTopSidebar: React.FC<IProps> = props => {
         currentOpenSubs
       });
     }
-  }, [menuItems, currentTopMenu, keys.currentSideMenu, pathname]);
+  }, [menuItems, currentTopMenu, keys.currentSideMenu, pathname, history]);
 
   if (menuItems.length === 0) return null;
 
