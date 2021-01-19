@@ -1,10 +1,5 @@
 import React, { memo, useState, useCallback, useMemo } from 'react';
-import {
-  SketchPicker,
-  GithubPicker,
-  TwitterPicker,
-  ChromePicker
-} from 'react-color';
+import { SketchPicker, GithubPicker, TwitterPicker, ChromePicker } from 'react-color';
 import { Popover } from 'antd';
 import './index.less';
 /**
@@ -13,9 +8,9 @@ import './index.less';
 
 interface IProps {
   onChangeComplete: (color: string) => void;
+  color: string;
   type?: string;
   position?: string;
-  themeColor?: string;
 }
 
 const pickers: {
@@ -28,22 +23,15 @@ const pickers: {
 };
 
 const PickColor: React.FC<IProps> = props => {
-  const {
-    type = 'sketch',
-    position = 'bottom',
-    themeColor = '#555555',
-    onChangeComplete
-  } = props;
+  const { color, type = 'sketch', position = 'bottom', onChangeComplete } = props;
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
-  const [color, setColor] = useState(themeColor);
   const Picker: any = pickers[type] ? pickers[type] : SketchPicker;
 
   const handleChangeComplete = useCallback(
     (color: any) => {
       onChangeComplete(color.hex);
-      setColor(color.hex);
     },
-    [onChangeComplete, setColor]
+    [onChangeComplete]
   );
   // 展示色块的点击
   const handleDisplayColorPicker = useCallback(() => {

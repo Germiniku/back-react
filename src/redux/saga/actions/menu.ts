@@ -10,5 +10,17 @@ export const MenuAction = extendRoutine(createRoutine(`${NAME_SPACE.MENU}`), [
   {
     type: 'SET_CURRENT_MENU',
     action: 'setCurrentMenu'
+  },
+  {
+    type: 'SET_THEME',
+    action: 'setTheme'
+  },
+  {
+    type: 'SET_PRIMARY_COLOR',
+    action: 'setPrimaryColor'
+  },
+  {
+    type: 'SET_DRAWER',
+    action: 'setDrawer'
   }
 ]);

@@ -11,7 +11,12 @@ interface IMenu {
   };
   currentTopMenu: string | null;
   currentSidebar: ISidebar;
+  theme: theme;
+  primaryColor: string;
+  drawer: boolean;
 }
+
+type theme = 'light' | 'dark' | undefined;
 
 type IMenuItem = {
   name: string;

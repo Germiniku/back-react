@@ -2,7 +2,7 @@
  * left-top 布局的菜单Menu组件
  */
 
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState, useMemo } from 'react';
 import { Layout, Menu } from 'antd';
 import { GithubOutlined } from '@ant-design/icons';
 import { MenuInfo } from 'rc-menu/lib/interface';
@@ -14,13 +14,15 @@ interface IProps {
   history: RouteConfigComponentProps['history'];
   currentTopMenu: string;
   pathname: RouteComponentProps['location']['pathname'];
+  theme: theme;
+  primaryColor: string;
 }
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
 const LeftTopSidebar: React.FC<IProps> = props => {
-  const { collapsed, menuItems, history, currentTopMenu, pathname } = props;
+  const { collapsed, menuItems, history, currentTopMenu, pathname, theme, primaryColor } = props;
   const [keys, setKeys] = useState<{
     currentOpenSubs: string[];
     currentSideMenu: string;
@@ -123,17 +125,40 @@ const LeftTopSidebar: React.FC<IProps> = props => {
       });
     }
   }, [menuItems, currentTopMenu, keys.currentSideMenu, pathname, history]);
-
+  const style = useMemo(
+    () => ({
+      sidebar: {
+        boxShadow: `1px 0 6px ${primaryColor}`,
+        background: theme === 'light' ? '#fff' : primaryColor
+      },
+      logoColor: {
+        backgroundColor: theme === 'light' ? '#fff' : primaryColor,
+        color: theme === 'light' ? primaryColor : '#fff'
+      }
+    }),
+    [primaryColor, theme]
+  );
   if (menuItems.length === 0) return null;
 
   return (
-    <Sider className="sidebar" trigger={null} collapsible collapsed={collapsed}>
+    <Sider
+      className="sidebar"
+      style={style.sidebar}
+      trigger={null}
+      collapsible
+      collapsed={collapsed}
+    >
       <div className="logo">
-        <GithubOutlined className="logo-icon" />
-        <span className="logo-title" style={{display: !!collapsed ? 'none' : ''}}>dva</span>
+        <GithubOutlined className="logo-icon" style={style.logoColor} />
+        <span
+          className='logo-title'
+          style={style.logoColor}
+        >
+          dva
+        </span>
       </div>
       <Menu
-        theme="dark"
+        theme={theme}
         mode="inline"
         onClick={handleOnMenuClick}
         selectedKeys={[keys.currentSideMenu]}
@@ -147,7 +172,10 @@ const LeftTopSidebar: React.FC<IProps> = props => {
             return (
               <SubMenu title={item.name} icon={item.icon} key={item.path}>
                 {item.routes?.map(child => (
-                  <Menu.Item icon={child.icon} key={child.path}>
+                  <Menu.Item
+                    icon={child.icon}
+                    key={child.path}
+                  >
                     {child.name}
                   </Menu.Item>
                 ))}

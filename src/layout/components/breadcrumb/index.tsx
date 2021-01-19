@@ -23,7 +23,6 @@ const { Item } = Breadcrumb;
 const BreadcrumbComponent: React.FC<IProps> = props => {
   const { data, currentSidebar, history, pathname } = props;
   if (currentSidebar.length === 0) return null;
-  console.log(data);
   const pathSnippets = pathname.split('/').filter(i => i);
   const isShowBack = pathSnippets.length >= 3 && history['length'] > 1;
 

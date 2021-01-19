@@ -48,7 +48,7 @@
   }
   // 侧边栏布局
   .sidebar {
-    background: @primary-color;
+    overflow: hidden;
     .logo {
       display: flex;
       justify-content: center;
@@ -57,7 +57,6 @@
       padding: 8px 0 0 3px;
       // width: 200px;
       height: 40px;
-      background: @primary-color;
       &-icon {
         font-size: 30px;
         color: #fff;
@@ -65,11 +64,21 @@
       &-title {
         margin-left: 10px;
         font-size: 22px;
-        color: #fff;
+        &-light {
+          color: @primary-color;
+        }
+        &-dark {
+          color: #fff;
+        }
       }
     }
     .ant-menu {
-      background: @primary-color;
+      .ant-menu-item:after {
+        border-right: none;
+      }
+    }
+    .ant-menu-inline {
+      border-right: none;
     }
   }
   &-content {
@@ -84,6 +93,9 @@
     &-icon {
       margin-right: 4px;
     }
+  }
+  .ant-layout-header {
+    background: @layout-theme-color;
   }
 }
 .ant-drawer-header-no-title {
