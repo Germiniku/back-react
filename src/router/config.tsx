@@ -1,19 +1,21 @@
 import React from 'react';
+import Loadable from 'react-loadable';
+import { DashboardOutlined } from '@ant-design/icons';
 import Auth from './Auth';
-import Dashboard from '../pages/dashboard';
-import Login from '../pages/login';
 import Layout from '../layout';
 import Product from './product';
 import User from './user';
-import { DashboardOutlined } from '@ant-design/icons';
-
+import loading from './loading';
 export default [
   {
     // 顶级路由 路由鉴权组件
     component: Auth,
     routes: [
       {
-        component: Login,
+        component: Loadable({
+          loader: () => import('../pages/login'),
+          ...loading
+        }),
         path: '/login'
       },
       {
@@ -22,7 +24,10 @@ export default [
         routes: [
           {
             // 一级路由
-            component: Dashboard,
+            component: Loadable({
+              loader: () => import('../pages/dashboard'),
+              ...loading
+            }),
             icon: <DashboardOutlined />,
             path: '/dashboard',
             name: '工作台'
@@ -32,8 +37,15 @@ export default [
           // 用户管理
           User
         ]
-      }
+      },
       // TODO:一个404页面
+      {
+        component: Loadable({
+          loader: () => import('../pages/not-found'),
+          ...loading
+        }),
+        path: '/404'
+      }
     ]
   }
 ];

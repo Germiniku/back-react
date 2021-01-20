@@ -2,10 +2,10 @@
  * 用户管理路由配置
  */
 import React from 'react';
-import RouteWithSubRoute from '../RouteWIthSubRoutes';
-import UserProfile from '../../pages/user-manage/profile';
 import { UserOutlined } from '@ant-design/icons';
-
+import Loadable from 'react-loadable';
+import RouteWithSubRoute from '../RouteWIthSubRoutes';
+import loading from '../loading';
 export default {
   component: RouteWithSubRoute,
   icon: <UserOutlined />,
@@ -25,7 +25,10 @@ export default {
           path: '/list',
           routes: [
             {
-              component: UserProfile
+              component: Loadable({
+                loader: () => import('../../pages/user-manage/profile'),
+                ...loading
+              })
             }
           ]
         }

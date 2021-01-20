@@ -42,7 +42,7 @@ const LayoutComp: React.FC<IProps> = props => {
     actions.setMenu({ routes: route?.routes });
   }, [route, actions]);
   if (topMenu.length === 0) {
-    return <Spin className="loading" style={{ color: primaryColor }}></Spin>;
+    return <Spin className="spin-center" style={{ color: primaryColor }}></Spin>;
   }
   return (
     <Layout className="layout">

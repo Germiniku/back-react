@@ -19,6 +19,7 @@
     "react": "^17.0.1",
     "react-color": "^2.19.3",
     "react-dom": "^17.0.1",
+    "react-loadable": "^5.5.0",
     "react-redux": "^7.2.2",
     "react-router-config": "^5.1.1",
     "react-router-dom": "^5.2.0",
@@ -35,7 +36,8 @@
   },
   "scripts": {
     "start": "env-cmd -e dev react-app-rewired start",
-    "build": "react-app-rewired build",
+    "build:prod": "env-cmd -e prod react-app-rewired build",
+    "build:qa": "react-app-rewired build",
     "test": "react-app-rewired test"
   },
   "eslintConfig": {
@@ -59,6 +61,7 @@
   "devDependencies": {
     "@types/classnames": "^2.2.11",
     "@types/react-color": "^3.0.4",
+    "@types/react-loadable": "^5.5.4",
     "@types/react-redux": "^7.1.15",
     "@types/react-router-config": "^5.0.2",
     "@types/react-router-dom": "^5.1.7",

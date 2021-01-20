@@ -3,12 +3,10 @@
  */
 
 import React from 'react';
-import Tag from '../../pages/prod-manage/tag';
-import Img from '../../pages/prod-manage/img';
-import RouteWithSubRoute from '../RouteWIthSubRoutes';
-import CreateTag from '../../pages/prod-manage/tag/createTag';
 import { BulbOutlined } from '@ant-design/icons';
-
+import Loadable from 'react-loadable';
+import RouteWithSubRoute from '../RouteWIthSubRoutes';
+import loading from '../loading';
 export default {
   component: RouteWithSubRoute,
   icon: <BulbOutlined />,
@@ -31,13 +29,19 @@ export default {
           routes: [
             {
               // 四级路由
-              component: Tag
+              component: Loadable({
+                loader: () => import('../../pages/prod-manage/tag'),
+                ...loading
+              })
             },
             {
               path: '/create',
               icon: '',
               name: '新建标签',
-              component: CreateTag
+              component: Loadable({
+                loader: () => import('../../pages/prod-manage/tag/createTag'),
+                ...loading
+              })
             }
           ]
         }
@@ -56,7 +60,10 @@ export default {
           name: '图片管理列表',
           routes: [
             {
-              component: Img
+              component: Loadable({
+                loader: () => import('../../pages/prod-manage/img'),
+                ...loading
+              })
             }
           ]
         }
