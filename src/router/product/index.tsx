@@ -42,7 +42,7 @@ export default {
                 loader: () => import('../../pages/prod-manage/tag/createTag'),
                 ...loading
               })
-            }
+            },
           ]
         }
       ]

@@ -5,6 +5,7 @@ import Auth from './Auth';
 import Layout from '../layout';
 import Product from './product';
 import User from './user';
+import Components from './components';
 import loading from './loading';
 export default [
   {
@@ -17,6 +18,23 @@ export default [
           ...loading
         }),
         path: '/login'
+      },
+      /**
+       * 这里有一个坑 公用的路由一定要放在布局组件上面，否则有优先匹配布局组件
+       */
+      {
+        component: Loadable({
+          loader: () => import('../pages/not-found'),
+          ...loading
+        }),
+        path: '/404'
+      },
+      {
+        component: Loadable({
+          loader: () => import('../pages/not-authorized'),
+          ...loading
+        }),
+        path: '/403'
       },
       {
         component: Layout,
@@ -35,16 +53,10 @@ export default [
           // 作品管理
           Product,
           // 用户管理
-          User
+          User,
+          // 组件管理
+          Components
         ]
-      },
-      // TODO:一个404页面
-      {
-        component: Loadable({
-          loader: () => import('../pages/not-found'),
-          ...loading
-        }),
-        path: '/404'
       }
     ]
   }

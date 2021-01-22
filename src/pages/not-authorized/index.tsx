@@ -11,9 +11,9 @@ const NotFound: React.FC<IProps> = props => {
   }, [history]);
   return (
     <Result
-      status="404"
-      title="404"
-      subTitle="您访问的页面丢失了"
+      status="403"
+      title="403"
+      subTitle="Sorry, you are not authorized to access this page."
       extra={
         <Button type="primary" onClick={handleBackHome}>
           Back Home
