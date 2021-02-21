@@ -23,7 +23,6 @@ const { Sider } = Layout;
 
 const LeftSidebar: React.FC<IProps> = props => {
   const { collapsed, menuItems, history, currentTopMenu, pathname, theme, primaryColor } = props;
-  console.log('currentTopMenu:', currentTopMenu);
   const [keys, setKeys] = useState<{
     currentOpenSubs: string[];
     currentSideMenu: string;

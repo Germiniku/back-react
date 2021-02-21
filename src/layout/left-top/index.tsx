@@ -6,8 +6,9 @@ import React, { memo, useCallback, useEffect, useState, useMemo } from 'react';
 import { Layout, Menu } from 'antd';
 import { GithubOutlined } from '@ant-design/icons';
 import { MenuInfo } from 'rc-menu/lib/interface';
-import { RouteConfigComponentProps } from 'react-router-config';
+import {  RouteConfigComponentProps } from 'react-router-config';
 import { matchPath, RouteComponentProps } from 'react-router-dom';
+
 interface IProps {
   collapsed: boolean;
   menuItems: ISidebar;
@@ -22,7 +23,15 @@ const { SubMenu } = Menu;
 const { Sider } = Layout;
 
 const LeftTopSidebar: React.FC<IProps> = props => {
-  const { collapsed, menuItems, history, currentTopMenu, pathname, theme, primaryColor } = props;
+  const {
+    collapsed,
+    menuItems,
+    history,
+    currentTopMenu,
+    pathname,
+    theme,
+    primaryColor
+  } = props;
   const [keys, setKeys] = useState<{
     currentOpenSubs: string[];
     currentSideMenu: string;
@@ -150,10 +159,7 @@ const LeftTopSidebar: React.FC<IProps> = props => {
     >
       <div className="logo">
         <GithubOutlined className="logo-icon" style={style.logoColor} />
-        <span
-          className='logo-title'
-          style={style.logoColor}
-        >
+        <span className="logo-title" style={style.logoColor}>
           dva
         </span>
       </div>
@@ -172,10 +178,7 @@ const LeftTopSidebar: React.FC<IProps> = props => {
             return (
               <SubMenu title={item.name} icon={item.icon} key={item.path}>
                 {item.routes?.map(child => (
-                  <Menu.Item
-                    icon={child.icon}
-                    key={child.path}
-                  >
+                  <Menu.Item icon={child.icon} key={child.path}>
                     {child.name}
                   </Menu.Item>
                 ))}

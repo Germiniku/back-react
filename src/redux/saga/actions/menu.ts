@@ -22,5 +22,9 @@ export const MenuAction = extendRoutine(createRoutine(`${NAME_SPACE.MENU}`), [
   {
     type: 'SET_DRAWER',
     action: 'setDrawer'
+  },
+  {
+    type: 'SET_CONTEXT_MENU',
+    action: 'setContextMenu'
   }
 ]);

@@ -5,7 +5,6 @@ import Auth from './Auth';
 import Layout from '../layout';
 import Product from './product';
 import User from './user';
-import Components from './components';
 import loading from './loading';
 export default [
   {
@@ -53,9 +52,7 @@ export default [
           // 作品管理
           Product,
           // 用户管理
-          User,
-          // 组件管理
-          Components
+          User
         ]
       }
     ]

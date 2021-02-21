@@ -28,7 +28,7 @@ const LayoutComp: React.FC<IProps> = props => {
     setMenu: MenuAction.setMenu,
     setCurrentMenu: MenuAction.setCurrentMenu,
     setDrawer: MenuAction.setDrawer,
-    setTheme: MenuAction.setTheme
+    setTheme: MenuAction.setTheme,
   });
   const toggle = () => {
     setCollapsed(!collapsed);
@@ -85,8 +85,6 @@ const LayoutComp: React.FC<IProps> = props => {
         </Header>
         <Content className="layout-content">
           <Breadcrumb
-            data={breadcrumb}
-            currentSidebar={currentSidebar}
             pathname={pathname}
             history={history}
           />

@@ -14,6 +14,13 @@ interface IMenu {
   theme: theme;
   primaryColor: string;
   drawer: boolean;
+  contextMenus: IContextMenu[]; // 多页签状态
+}
+
+// 多页签
+type IContextMenu = {
+  name: string;
+  path: string;  
 }
 
 type theme = 'light' | 'dark' | undefined;

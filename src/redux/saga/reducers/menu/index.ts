@@ -1,16 +1,17 @@
 import { MenuAction } from '../../actions/menu';
 import { recursiveMenu } from './utils';
 import LocalStore from '../../../../utils/localStore';
+import { stat } from 'fs';
 const initialState: IMenu = {
   breadcrumb: {},
   topMenu: [],
   sideMenu: {},
   currentTopMenu: null,
   currentSidebar: [],
-
   theme: (LocalStore.get('theme') as theme) || 'dark',
   primaryColor: LocalStore.get('primaryColor') || '#9b59b6',
-  drawer: false
+  drawer: false,
+  contextMenus: []
 };
 
 export default (state = initialState, action: ActionParams) => {
@@ -51,6 +52,13 @@ export default (state = initialState, action: ActionParams) => {
       return {
         ...state,
         primaryColor: action.payload
+      };
+    }
+    case MenuAction.SET_CONTEXT_MENU: {
+      const { contextMenus } = action.payload;
+      return {
+        ...state,
+        contextMenus
       };
     }
     default:
