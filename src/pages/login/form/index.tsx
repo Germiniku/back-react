@@ -26,9 +26,7 @@ const LoginForm: React.FC<IProps> = props => {
   return (
     <div className="login-layout-container-main">
       <Form className="login-layout-container-main-form" onFinish={handleLogin}>
-        <p className="login-layout-container-main-form-title">
-          欢迎登陆widowmaker后台系统
-        </p>
+        <p className="login-layout-container-main-form-title">欢迎登陆widowmaker后台系统</p>
         <Item className="login-layout-container-main-form-item" name="phone">
           <Input placeholder="请输入手机号" />
         </Item>
